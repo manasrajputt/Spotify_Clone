@@ -63,12 +63,6 @@ body {
   align-items: flex-start;
 }
 
-/* .right .musics {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-} */
-
 .song {
   background-color: #252525;
   width: fit-content;

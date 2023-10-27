@@ -31,7 +31,6 @@ router.get('/', isLoggedIn, async function (req, res, next) {
         model: 'song'
       }
     })
-  // console.log(currentUser.playlist[0].songs)
   res.render('index', { currentUser });
 });
 
