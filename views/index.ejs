@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href='https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+
+<body>
+  <div id="main">
+    <div class="left">
+      <button>
+        <i class="ri-home-fill"></i>
+        <p>Home</p>
+      </button>
+      <a href="/search">
+        <i class="ri-search-fill"></i>
+        <p>Search</p>
+      </a>
+    </div>
+    <div class="right">
+      <% currentUser.playlist[0].songs.forEach(function(song){ %>
+          <div class="song">
+            <img src="/poster/<%= song.poster %>" alt="">
+            <div class="text">
+              <h5><%= song.title %></h5>
+              <p><%= song.artist %></p>
+              <p><%= song.album %></p>
+            </div>
+            <div class="playButton">
+              <i class="ri-play-circle-fill"></i>
+            </div>
+          </div>
+        <% }) %>
+    </div>
+  </div>
+</body>
+
+</html>
