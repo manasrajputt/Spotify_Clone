@@ -13,20 +13,33 @@
 <body>
   <div id="main">
     <div class="left">
-      <button>
+      <a href="/">
         <i class="ri-home-fill"></i>
         <p>Home</p>
-      </button>
+      </a>
       <div class="search">
         <input type="text" placeholder="What do you want to listen to?">
         <i class="ri-search-fill"></i>
       </div>
+      <a href="/likedMusic">
+        <i class="ri-heart-line"></i>
+        <p>Liked Music</p>
+      </a>
+      <a class="lst-left" href="/logout">
+        <i class="ri-logout-box-line"></i>
+        <p>logout</p>
+      </a>
     </div>
     <div class="right">
       <div class="musics">
         <% currentUser.playlist[0].songs.forEach(function(song){ %>
-          <div class="song" onclick="songCardClick('<%= song.fileName %>')">
-            <img src="/poster/<%= song.poster %>" alt="">
+          <div class="song">
+            <div class="image">
+              <img src="/poster/<%= song.poster %>" alt="">
+              <div class="playButton" onclick="songCardClick('<%= song.fileName %>')">
+                <i class="ri-play-circle-fill"></i>
+              </div>
+            </div>
             <div class="text">
               <h5>
                 <%= song.title %>
@@ -38,13 +51,16 @@
                 <%= song.album %>
               </p>
             </div>
-            <div class="playButton">
-              <i class="ri-play-circle-fill"></i>
-            </div>
+            <a href="/likeMusic/<%= song._id %>">
+              <p>
+                <%= song.likes.indexOf(currentUser.id)===-1 ? "Like" : "Unlike" %>
+              </p>
+            </a>
           </div>
           <% }) %>
       </div>
       <div class="right2">
+        <h4 class="songName"></h4>
         <audio src="" controls></audio>
       </div>
     </div>
@@ -79,7 +95,11 @@
     }
 
 
-    function songCardClick(fileName) {
+    async function songCardClick(fileName) {
+      await axios.get(`/SongName/${fileName}`)
+        .then(function (songName) {
+          document.querySelector('.songName').innerHTML = songName.data.title
+        })
       document.querySelector('audio').setAttribute('src', `/stream/${fileName}`)
       document.querySelector('audio').play()
     }

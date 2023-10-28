@@ -157,13 +157,13 @@ function isAdmin(req, res, next) {
 
 /* user authentication routes */
 
-router.get('/stream/:musicName',async function(req,res,next){
+router.get('/stream/:musicName', async function (req, res, next) {
 
-  const currentSong=await songModel.findOne({
-    fileName:req.params.musicName
+  const currentSong = await songModel.findOne({
+    fileName: req.params.musicName
   })
 
-  const stream=gfsBucket.openDownloadStreamByName(req.params.musicName)
+  const stream = gfsBucket.openDownloadStreamByName(req.params.musicName)
 
   res.set('Content-Type', 'audio/mpeg')
   res.set('Content-Length', currentSong.size + 1)
@@ -172,6 +172,17 @@ router.get('/stream/:musicName',async function(req,res,next){
   res.status(206)
 
   stream.pipe(res)
+})
+
+router.get('/SongName/:musicName', async function (req, res, next) {
+
+  const currentSong = await songModel.findOne({
+    fileName: req.params.musicName
+  })
+
+  res.json({
+    title: currentSong.title
+  })
 })
 
 router.post('/search', async (req, res, next) => {
@@ -183,6 +194,29 @@ router.post('/search', async (req, res, next) => {
     songs: searhedMusic
   })
 
+})
+
+router.get('/likeMusic/:songid', isLoggedIn, async function (req, res, next) {
+  const foundUser = await userModel.findOne({ username: req.session.passport.user })
+  if (foundUser.likes.indexOf(req.params.songid) === -1) {
+    foundUser.likes.push(req.params.songid);
+  }
+  else {
+    foundUser.likes.splice(foundUser.likes.indexOf(req.params.songid),1)
+  }
+  await foundUser.save();
+
+  const foundSong = await songModel.findOne({ _id: req.params.songid })
+  console.log(foundSong)
+  if (foundSong.likes.indexOf(foundUser._id) === -1) {
+    foundSong.likes.push(foundUser._id);
+  }
+  else {
+    foundSong.likes.splice(foundSong.likes.indexOf(foundUser._id),1)
+  }
+  await foundSong.save();
+  res.redirect('back');
+  console.log(foundUser)
 })
 
 module.exports = router;

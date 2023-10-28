@@ -25,9 +25,10 @@ body {
   height: 100%;
   width: 20%;
   background-color: #121212;
+  position: relative;
 }
 
-.left button{
+.left a{
   font-size: 28px;
   background-color: transparent;
   outline: none;
@@ -69,7 +70,7 @@ body {
   font-size: 28px;
 }
 
-.left button:hover,
+.left a:hover,
 .left .search:hover {
   background-color: #333;
 }
@@ -77,6 +78,11 @@ body {
 .left button p,
 .left a p {
   font-size: 18px;
+}
+
+.left .lst-left{
+  position: absolute;
+  bottom: 0;
 }
 
 .right {
@@ -136,11 +142,14 @@ body {
   border-radius: 7px;
 }
 
-.song .playButton {
+.song .image{
+  position: relative;
+}
+
+.song .image .playButton {
   position: absolute;
-  transform: translate(-50%, -50%);
-  top: 63%;
-  left: 85%;
+  bottom: 3%;
+  right: 3%;
   font-size: 35px;
   cursor: pointer;
 }
@@ -154,18 +163,32 @@ body {
   display: initial;
 }
 
+.song a{
+  font-size: 15px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content:end;
+}
+
+.song a p:hover{
+  color: green;
+}
+
+
 .right2{
   width: 100%;
   height: 12%;
   bottom: 0;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: #121212;
   border-top: 8px solid black;
+  padding: 0px 10px;
 }
 
 audio {
-  width:90%;
+  width:65%;
 }
