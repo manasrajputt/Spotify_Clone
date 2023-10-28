@@ -157,6 +157,32 @@ function isAdmin(req, res, next) {
 
 /* user authentication routes */
 
+router.get('/stream/:musicName',async function(req,res,next){
 
+  const currentSong=await songModel.findOne({
+    fileName:req.params.musicName
+  })
+
+  const stream=gfsBucket.openDownloadStreamByName(req.params.musicName)
+
+  res.set('Content-Type', 'audio/mpeg')
+  res.set('Content-Length', currentSong.size + 1)
+  res.set('Content-Range', `bytes 0-${currentSong.size - 1}/${currentSong.size}`)
+  res.set('Content-Ranges', 'byte')
+  res.status(206)
+
+  stream.pipe(res)
+})
+
+router.post('/search', async (req, res, next) => {
+  const searhedMusic = await songModel.find({
+    title: { $regex: req.body.search }
+  })
+
+  res.json({
+    songs: searhedMusic
+  })
+
+})
 
 module.exports = router;

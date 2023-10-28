@@ -17,27 +17,74 @@
         <i class="ri-home-fill"></i>
         <p>Home</p>
       </button>
-      <a href="/search">
+      <div class="search">
+        <input type="text" placeholder="What do you want to listen to?">
         <i class="ri-search-fill"></i>
-        <p>Search</p>
-      </a>
+      </div>
     </div>
     <div class="right">
-      <% currentUser.playlist[0].songs.forEach(function(song){ %>
-          <div class="song">
+      <div class="musics">
+        <% currentUser.playlist[0].songs.forEach(function(song){ %>
+          <div class="song" onclick="songCardClick('<%= song.fileName %>')">
             <img src="/poster/<%= song.poster %>" alt="">
             <div class="text">
-              <h5><%= song.title %></h5>
-              <p><%= song.artist %></p>
-              <p><%= song.album %></p>
+              <h5>
+                <%= song.title %>
+              </h5>
+              <p>
+                <%= song.artist %>
+              </p>
+              <p>
+                <%= song.album %>
+              </p>
             </div>
             <div class="playButton">
               <i class="ri-play-circle-fill"></i>
             </div>
           </div>
-        <% }) %>
+          <% }) %>
+      </div>
+      <div class="right2">
+        <audio src="" controls></audio>
+      </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"
+    integrity="sha512-emSwuKiMyYedRwflbZB2ghzX8Cw8fmNVgZ6yQNNXXagFzFOaQmbvQ1vmDkddHjm5AITcBIZfC7k4ShQSjgPAmQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    document.querySelector('.left .search i').addEventListener('click', function () {
+      searchSong();
+    })
+
+    async function searchSong() {
+      const result = await axios.post('/search', {
+        search: document.querySelector('.left .search input').value
+      })
+      let clutter = ''
+      result.data.songs.forEach(song => {
+        clutter += ` <div class="song" onclick="songCardClick('${song.fileName}')">
+          <img src="/poster/${song.poster}" alt="">
+          <div class="text">
+            <h5>${song.title}</h5>
+            <p> ${song.artist}</p>
+            <p> ${song.album}</p>
+          </div>
+          <div class="playButton">
+            <i class="ri-play-circle-fill"></i>
+          </div>
+        </div>`
+      });
+      document.querySelector('.musics').innerHTML = clutter
+    }
+
+
+    function songCardClick(fileName) {
+      document.querySelector('audio').setAttribute('src', `/stream/${fileName}`)
+      document.querySelector('audio').play()
+    }
+
+  </script>
 </body>
 
 </html>

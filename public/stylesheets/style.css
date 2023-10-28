@@ -8,7 +8,7 @@
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   overflow-y: auto;
 }
@@ -27,10 +27,8 @@ body {
   background-color: #121212;
 }
 
-.left button,
-.left a {
-  font-size: 32px;
-  color: #fff;
+.left button{
+  font-size: 28px;
   background-color: transparent;
   outline: none;
   border: none;
@@ -43,8 +41,36 @@ body {
   text-decoration: none;
 }
 
+.left .search{
+  width: 100%;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.left .search input{
+  width:80%;
+  padding: 8px 8px;
+  outline: none;
+  color: white;
+  background-color: #252525;
+  border: 1.2px solid black;
+  border-radius: 15px;
+}
+
+.left .search input:focus{
+  border: 2px solid white;
+}
+
+.left .search i{
+  cursor: pointer;
+  font-size: 28px;
+}
+
 .left button:hover,
-.left a:hover {
+.left .search:hover {
   background-color: #333;
 }
 
@@ -56,22 +82,39 @@ body {
 .right {
   width: 80%;
   height: 100%;
-  background-color: #121212;
+  background-color:#121212;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  align-items: flex-start;
+  align-items:flex-start;
+  flex-direction: column;
+  /* justify-content: center; */
 }
 
+.right .musics {
+  width: 100%;
+  height: 88%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.right .musics::-webkit-scrollbar{
+  display: none;
+}
+
+
 .song {
-  background-color: #252525;
+  background-color: #25252569;
   width: fit-content;
+  height: fit-content;
   align-self: flex-start;
   padding: 7px;
   border-radius: 7px;
-  margin: 15px;
+  margin: 7px;
   position: relative;
-  height: fit-content;
+}
+
+.song:hover{
+  background-color:#333333;
 }
 
 .song .text h5,
@@ -81,10 +124,14 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.song .text p {
+  font-size: 12px;
+}
 
 .song img {
-  height: 170px;
-  width: 170px;
+  width: 100%;
+  /* height: 200px;
+  width: 200px; */
   object-fit: cover;
   border-radius: 7px;
 }
@@ -92,12 +139,33 @@ body {
 .song .playButton {
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 62%;
-  left: 86%;
+  top: 63%;
+  left: 85%;
   font-size: 35px;
   cursor: pointer;
 }
 
 .song .playButton i {
   color: green;
+  display: none;
+}
+
+.song:hover i{
+  display: initial;
+}
+
+.right2{
+  width: 100%;
+  height: 12%;
+  bottom: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  border-top: 8px solid black;
+}
+
+audio {
+  width:90%;
 }
