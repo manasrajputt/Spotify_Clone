@@ -25,26 +25,6 @@
         <i class="ri-heart-line"></i>
         <p>Liked Music</p>
       </a>
-      <a class="playlist">
-        <div class="playlist">
-          <i class="ri-play-list-line"></i>
-          <p>PlayList</p>
-        </div>
-        <i id="add" class="ri-add-line"></i>
-      </a>
-      <div class="newplaylist">
-        <form action="/createplaylist" id="playlistform" method="post">
-          <input name="playlistName" type="text" placeholder="Add PlayList">
-        </form>
-        <% currentUser.playlist.forEach(function(playlist){ %>
-          <div class="text">
-            <h5>
-              <%= playlist.name %>
-            </h5>
-            <a href="/deleteplaylist/<%= playlist._id %>"><i class="ri-delete-bin-6-fill"></i></a>
-          </div>
-          <% }) %>
-      </div>
       <a class="lst-left" href="/logout">
         <i class="ri-logout-box-line"></i>
         <p>logout</p>
@@ -52,7 +32,7 @@
     </div>
     <div class="right">
       <div class="musics">
-        <% currentUser.playlist[0].songs.forEach(function(song){ %>
+        <% songData.likes.forEach(function(song){ %>
           <div class="song">
             <div class="image">
               <img src="/poster/<%= song.poster %>" alt="">
@@ -73,7 +53,7 @@
             </div>
             <a href="/likeMusic/<%= song._id %>">
               <p>
-                <%= song.likes.indexOf(currentUser.id)===-1 ? "Like" : "Unlike" %>
+                <%= song.likes.indexOf(songData.id)===-1 ? "Like" : "Unlike" %>
               </p>
             </a>
           </div>
@@ -123,18 +103,6 @@
       document.querySelector('audio').setAttribute('src', `/stream/${fileName}`)
       document.querySelector('audio').play()
     }
-
-    var flag1 = true;
-    document.querySelector("#add").addEventListener('click', function () {
-      if (flag1) {
-        document.querySelector("#playlistform").style.display = "block";
-        flag1 = false;
-      }
-      else {
-        document.querySelector("#playlistform").style.display = "none";
-        flag1 = true;
-      }
-    });
 
   </script>
 </body>

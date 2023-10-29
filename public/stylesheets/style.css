@@ -33,11 +33,10 @@ body {
   background-color: transparent;
   outline: none;
   border: none;
-  width: 100%;
-  display: flex;
   padding: 16px;
   gap: 25px;
   cursor: pointer;
+  display: flex;
   align-items: center;
   text-decoration: none;
 }
@@ -51,7 +50,7 @@ body {
   padding: 16px;
 }
 
-.left .search input{
+.left .search input , .newplaylist input{
   width:80%;
   padding: 8px 8px;
   outline: none;
@@ -61,7 +60,7 @@ body {
   border-radius: 15px;
 }
 
-.left .search input:focus{
+.left .search input:focus , .newplaylist input:focus{
   border: 2px solid white;
 }
 
@@ -71,7 +70,7 @@ body {
 }
 
 .left a:hover,
-.left .search:hover {
+.left .search:hover, .newplaylist:hover {
   background-color: #333;
 }
 
@@ -83,6 +82,50 @@ body {
 .left .lst-left{
   position: absolute;
   bottom: 0;
+}
+
+.left .playlist{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+#playlistform{
+ display: none;
+}
+
+.newplaylist{
+  cursor: pointer;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: flex-start;
+  /* justify-content: space-between; */
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.newplaylist::-webkit-scrollbar{
+  display: none;
+}
+
+.newplaylist .text{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newplaylist .text a{
+  padding-right: 8px;
+
+}
+
+.newplaylist .text i{
+  font-size: 15px;
 }
 
 .right {
