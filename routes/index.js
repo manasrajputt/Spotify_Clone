@@ -31,10 +31,11 @@ router.get('/', isLoggedIn, async function (req, res, next) {
         model: 'song'
       }
     })
-  res.render('index', { currentUser });
+
+    res.render('index', { currentUser});
 });
 
-router.get('/poster/:posterName', function (req, res, next) {
+router.get('/poster/:posterName', isLoggedIn, function (req, res, next) {
   gfsBucketPoster.openDownloadStreamByName(req.params.posterName).pipe(res)
 })
 
@@ -157,7 +158,7 @@ function isAdmin(req, res, next) {
 
 /* user authentication routes */
 
-router.get('/stream/:musicName', async function (req, res, next) {
+router.get('/stream/:musicName', isLoggedIn, async function (req, res, next) {
 
   const currentSong = await songModel.findOne({
     fileName: req.params.musicName
@@ -171,10 +172,11 @@ router.get('/stream/:musicName', async function (req, res, next) {
   res.set('Content-Ranges', 'byte')
   res.status(206)
 
+
   stream.pipe(res)
 })
 
-router.get('/SongName/:musicName', async function (req, res, next) {
+router.get('/SongName/:musicName', isLoggedIn, async function (req, res, next) {
 
   const currentSong = await songModel.findOne({
     fileName: req.params.musicName
@@ -185,7 +187,7 @@ router.get('/SongName/:musicName', async function (req, res, next) {
   })
 })
 
-router.post('/search', async (req, res, next) => {
+router.post('/search', isLoggedIn, async (req, res, next) => {
   const searhedMusic = await songModel.find({
     title: { $regex: req.body.search }
   })
@@ -196,7 +198,7 @@ router.post('/search', async (req, res, next) => {
 
 })
 
-router.get('/likeMusic/:songid', isLoggedIn, async function (req, res, next) {
+router.get('/likeMusic/:songid', isLoggedIn, isLoggedIn, async function (req, res, next) {
   const foundUser = await userModel.findOne({ username: req.session.passport.user })
   if (foundUser.likes.indexOf(req.params.songid) === -1) {
     foundUser.likes.push(req.params.songid);
@@ -219,7 +221,7 @@ router.get('/likeMusic/:songid', isLoggedIn, async function (req, res, next) {
   // console.log(foundUser)
 })
 
-router.get('/likedMusic', async function (req, res, next) {
+router.get('/likedMusic', isLoggedIn, async function (req, res, next) {
   const songData = await userModel.findOne({ username: req.session.passport.user })
     .populate("likes")
   // console.log(songData);
@@ -227,7 +229,7 @@ router.get('/likedMusic', async function (req, res, next) {
 })
 
 
-router.post("/createplaylist",async function (req, res, next) {
+router.post("/createplaylist", isLoggedIn, async function (req, res, next) {
   const defaultplayList = await playlistModel.create({
     name: req.body.playlistName,
     owner: req.user._id,
@@ -242,15 +244,40 @@ router.post("/createplaylist",async function (req, res, next) {
   res.redirect('/');
 })
 
-router.get('/deleteplaylist/:playlistid',async function(req,res,next){
-    const foundUser= await userModel.findOne({username:req.session.passport.user})
-    console.log(foundUser)
-    foundUser.playlist.splice(foundUser.playlist.indexOf(req.params.playlistid),1);
+router.get('/deleteplaylist/:playlistid' ,isLoggedIn, async function (req, res, next) {
+  const foundUser = await userModel.findOne({ username: req.session.passport.user })
+  console.log(foundUser)
+  foundUser.playlist.splice(foundUser.playlist.indexOf(req.params.playlistid), 1);
 
-    await foundUser.save()
+  await foundUser.save()
 
-    const playlist= await playlistModel.findOneAndDelete({_id:req.params.playlistid})
-    console.log(foundUser);
-    res.redirect("/");
+  const playlist = await playlistModel.findOneAndDelete({ _id: req.params.playlistid })
+  console.log(foundUser);
+  res.redirect("/");
 })
+
+router.get('/AddPlayList/:playlistid/:songid', isLoggedIn, async function (req, res, next) {
+  const foundPlayList = await playlistModel.findOne({ _id: req.params.playlistid })
+  foundPlayList.songs.push(req.params.songid);
+  await foundPlayList.save();
+  res.redirect("/");
+})
+
+router.get('/PlayList/:playlistid', isLoggedIn, async function (req, res, next) {
+  const userdata=req.user;
+  const foundPlayList = await playlistModel.findOne({ _id: req.params.playlistid })
+    .populate("songs");
+  res.render("playList", { foundPlayList,userdata })
+})
+
+router.get('/removesong/:playlistid/:songid', isLoggedIn, async function (req, res, next) {
+  const playlistData = await playlistModel.findOne({ _id: req.params.playlistid })
+  console.log(playlistData);
+  playlistData.songs.splice(playlistData.songs.indexOf(req.params.songid), 1);
+
+  await playlistData.save();
+
+  res.redirect("back");
+})
+
 module.exports = router;

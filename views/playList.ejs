@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link href='https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css' rel='stylesheet'>
-  <link rel="stylesheet" href="./stylesheets/style.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
 </head>
-
 <body>
   <div id="main">
     <div class="left">
@@ -36,19 +34,11 @@
         <form action="/createplaylist" id="playlistform" method="post">
           <input name="playlistName" type="text" placeholder="Add PlayList">
         </form>
-        <% currentUser.playlist.forEach(function(playlist){ %>
           <div class="text">
             <h5>
-              <a href="PlayList/<%= playlist._id %>">
-                <%= playlist.name %>
-              </a>
+              <a href="/PlayList/<%= foundPlayList._id %>"><%= foundPlayList.name %></a>
             </h5>
-            <% if(currentUser.username===playlist.name) { %>
-              <% }else { %>
-                <a href="/deleteplaylist/<%= playlist._id %>"><i class="ri-delete-bin-6-fill"></i></a>
-                <% } %>
           </div>
-          <% }) %>
       </div>
       <a class="lst-left" href="/logout">
         <i class="ri-logout-box-line"></i>
@@ -57,7 +47,7 @@
     </div>
     <div class="right">
       <div class="musics">
-        <% currentUser.playlist[0].songs.forEach(function(song){ %>
+        <% foundPlayList.songs.forEach(function(song){ %>
           <div class="song">
             <div class="image">
               <img src="/poster/<%= song.poster %>" alt="">
@@ -75,21 +65,13 @@
               <p>
                 <%= song.album %>
               </p>
-            </div>
-            <div style=" margin-top: 2px; display: flex; align-items: center; justify-content: space-between;">
-              <div class="dropdown">
-                <button class="dropbtn">Add to playList</button>
-                <div class="dropdown-content">
-                  <% currentUser.playlist.forEach(function(playlist){ %>
-                    <a href="/AddPlayList/<%= playlist._id %>/<%= song._id %>">
-                      <%= playlist.name %>
-                    </a>
-                    <% }) %>
-                </div>
-              </div>
-              <a class="like" href="/likeMusic/<%= song._id %>">
-                <%= song.likes.indexOf(currentUser.id)===-1 ? "Like" : "Unlike" %>
-              </a>
+              
+              <% if( userdata.username=== foundPlayList.name) { %>
+                <% }else { %>
+                    <a class="removesong" href="/removesong/<%= foundPlayList._id %>/<%= song._id %>">
+                        Remove
+                      </a>
+                  <% } %>
             </div>
           </div>
           <% }) %>

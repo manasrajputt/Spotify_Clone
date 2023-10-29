@@ -1,357 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        *,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css" rel="stylesheet">
+	<style>
+		html {
+			color: #eee;
+		}
 
-body {
-	margin: 0;
-	font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-	background: #180148;
-}
+		* {
+			font-family: "Gotham Rounded Book", "sans-serif";
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
 
-.forms-section {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
+		body {
+			width: 100%;
+			min-height: 560px;
+			height: 100vh;
+			display: grid;
+			place-content: center;
+			background: #eee;
+		}
 
-.section-title {
-	font-size: 32px;
-	letter-spacing: 1px;
-	color: #fff;
-}
+		section {
+			min-width: 450px;
+			min-height: 520px;
+			padding: 15px;
+			box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+			border-radius: 10px;
+			background: #2c2d31;
+		}
 
-.forms {
-	display: flex;
-	align-items: flex-start;
-	margin-top: 30px;
-}
+		#logo {
+			justify-content: center;
+			display: flex;
+			align-items: center;
+			margin: 30px;
+		}
 
-.form-wrapper {
-	animation: hideLayer .3s ease-out forwards;
-}
+		nav {
+			margin: 20px;
+			display: flex;
+			justify-content: center;
+		}
 
-.form-wrapper.is-active {
-	animation: showLayer .3s ease-in forwards;
-}
+		nav label {
+			text-transform: uppercase;
+			cursor: pointer;
+		}
 
-@keyframes showLayer {
-	50% {
-		z-index: 1;
-	}
-	100% {
-		z-index: 1;
-	}
-}
+		nav label:first-child {
+			margin-right: 20px;
+		}
 
-@keyframes hideLayer {
-	0% {
-		z-index: 1;
-	}
-	49.999% {
-		z-index: 1;
-	}
-}
+		form {
+			padding-inline: 60px;
+			display: none;
+			flex-direction: column;
+		}
 
-.switcher {
-	position: relative;
-	cursor: pointer;
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 0;
-	text-transform: uppercase;
-	font-family: inherit;
-	font-size: 16px;
-	letter-spacing: .5px;
-	color: #999;
-	background-color: transparent;
-	border: none;
-	outline: none;
-	transform: translateX(0);
-	transition: all .3s ease-out;
-}
+		#SignIn:checked~section #SignInFormData {
+			display: flex;
+		}
 
-.form-wrapper.is-active .switcher-login {
-	color: #fff;
-	transform: translateX(90px);
-}
+		#SignIn:checked~section nav label:first-child {
+			margin-bottom: -2px;
+			border-bottom: 2px solid #1ed760;
+		}
 
-.form-wrapper.is-active .switcher-signup {
-	color: #fff;
-	transform: translateX(-90px);
-}
+		#SignUp:checked~section #SignUpFormData {
+			display: flex;
+		}
 
-.underline {
-	position: absolute;
-	bottom: -5px;
-	left: 0;
-	overflow: hidden;
-	pointer-events: none;
-	width: 100%;
-	height: 2px;
-}
+		#SignUp:checked~section nav label:last-child {
+			margin-bottom: -2px;
+			border-bottom: 2px solid #1ed760;
+		}
 
-.underline::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: inherit;
-	display: block;
-	width: inherit;
-	height: inherit;
-	background-color: currentColor;
-	transition: transform .2s ease-out;
-}
+		input,
+		button {
+			border-radius: 50px;
+			padding: 15px 20px;
+			margin-bottom: 15px;
+			border: none;
+			outline: none;
+			font-size: 16px;
+			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		}
 
-.switcher-login .underline::before {
-	transform: translateX(101%);
-}
+		button {
+			background: #1ed760;
+			text-transform: uppercase;
+			font-weight: bold;
+			color: #fff;
+			cursor: pointer;
+			margin-top: 5px;
+		}
 
-.switcher-signup .underline::before {
-	transform: translateX(-101%);
-}
+		form span {
+			margin-left: 20px;
+		}
 
-.form-wrapper.is-active .underline::before {
-	transform: translateX(0);
-}
+		form span label {
+			font-size: 14px;
+			text-transform: lowercase;
+		}
 
-.form {
-	overflow: hidden;
-	min-width: 260px;
-	margin-top: 50px;
-	padding: 30px 25px;
-  border-radius: 5px;
-	transform-origin: top;
-}
+		input[type="checkbox"] {
+			cursor: pointer;
+			accent-color: #3498db;
+		}
 
-.form-login {
-	animation: hideLogin .3s ease-out forwards;
-}
-
-.form-wrapper.is-active .form-login {
-	animation: showLogin .3s ease-in forwards;
-}
-
-@keyframes showLogin {
-	0% {
-		background: #d7e7f1;
-		transform: translate(40%, 10px);
-	}
-	50% {
-		transform: translate(0, 0);
-	}
-	100% {
-		background-color: #fff;
-		transform: translate(35%, -20px);
-	}
-}
-
-@keyframes hideLogin {
-	0% {
-		background-color: #fff;
-		transform: translate(35%, -20px);
-	}
-	50% {
-		transform: translate(0, 0);
-	}
-	100% {
-		background: #d7e7f1;
-		transform: translate(40%, 10px);
-	}
-}
-
-.form-signup {
-	animation: hideSignup .3s ease-out forwards;
-}
-
-.form-wrapper.is-active .form-signup {
-	animation: showSignup .3s ease-in forwards;
-}
-
-@keyframes showSignup {
-	0% {
-		background: #d7e7f1;
-		transform: translate(-40%, 10px) scaleY(.8);
-	}
-	50% {
-		transform: translate(0, 0) scaleY(.8);
-	}
-	100% {
-		background-color: #fff;
-		transform: translate(-35%, -20px) scaleY(1);
-	}
-}
-
-@keyframes hideSignup {
-	0% {
-		background-color: #fff;
-		transform: translate(-35%, -20px) scaleY(1);
-	}
-	50% {
-		transform: translate(0, 0) scaleY(.8);
-	}
-	100% {
-		background: #d7e7f1;
-		transform: translate(-40%, 10px) scaleY(.8);
-	}
-}
-
-.form fieldset {
-	position: relative;
-	opacity: 0;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	transition: all .3s ease-out;
-}
-
-.form-login fieldset {
-	transform: translateX(-50%);
-}
-
-.form-signup fieldset {
-	transform: translateX(50%);
-}
-
-.form-wrapper.is-active fieldset {
-	opacity: 1;
-	transform: translateX(0);
-	transition: opacity .4s ease-in, transform .35s ease-in;
-}
-
-.form legend {
-	position: absolute;
-	overflow: hidden;
-	width: 1px;
-	height: 1px;
-	clip: rect(0 0 0 0);
-}
-
-.input-block {
-	margin-bottom: 20px;
-}
-
-.input-block label {
-	font-size: 14px;
-  color: #a1b4b4;
-}
-
-.input-block input {
-	display: block;
-	width: 100%;
-	margin-top: 8px;
-	padding-right: 15px;
-	padding-left: 15px;
-	font-size: 16px;
-	line-height: 40px;
-	color: #3b4465;
-  background: #eef9fe;
-  border: 1px solid #cddbef;
-  border-radius: 2px;
-}
-
-.form [type='submit'] {
-	opacity: 0;
-	display: block;
-	min-width: 120px;
-	margin: 30px auto 10px;
-	font-size: 18px;
-	line-height: 40px;
-	border-radius: 25px;
-	border: none;
-	transition: all .3s ease-out;
-}
-
-.form-wrapper.is-active .form [type='submit'] {
-	opacity: 1;
-	transform: translateX(0);
-	transition: all .4s ease-in;
-}
-
-.btn-login {
-	color: #fbfdff;
-	background: #a7e245;
-	transform: translateX(-30%);
-}
-
-.btn-signup {
-	color: #a7e245;
-	background: #fbfdff;
-	box-shadow: inset 0 0 0 2px #a7e245;
-	transform: translateX(30%);
-}
-    </style>
+		a {
+			color: #797a7e;
+			font-weight: bold;
+			text-decoration: none;
+			margin-top: 30px;
+			display: flex;
+			justify-content: center;
+			cursor: pointer;
+		}
+	</style>
 </head>
-<body>
-    <section class="forms-section">
-        <h1 class="section-title">Animated Form</h1>
-        <div class="forms">
-          <div class="form-wrapper is-active">
-            <button type="button" class="switcher switcher-login">
-              Login
-              <span class="underline"></span>
-            </button>
-            <form action="/login" method="post" class="form form-login">
-              <fieldset>
-                <legend>Please, enter your email and password for login.</legend>
-                <div class="input-block">
-                  <label for="login-email">Username</label>
-                  <input id="login-email" name="username" type="text" required>
-                </div>
-                <div class="input-block">
-                  <label for="login-password">Password</label>
-                  <input id="login-password" type="password" name="password" required>
-                </div>
-              </fieldset>
-              <button type="submit" class="btn-login">Login</button>
-            </form>
-          </div>
-          <div class="form-wrapper">
-            <button type="button" class="switcher switcher-signup">
-              Sign Up
-              <span class="underline"></span>
-            </button>
-            <form action="/register" method="post" class="form form-signup">
-              <fieldset>
-                <legend>Please, enter your username, email and password for sign up.</legend>
-                <div class="input-block">
-                    <label for="signup-password">Username</label>
-                    <input id="signup-password" name="username" type="text" required>
-                </div>
-                <div class="input-block">
-                  <label for="signup-email">E-mail</label>
-                  <input id="signup-email" name="email" type="email" required>
-                </div>
-                <div class="input-block">
-                  <label for="signup-password">Password</label>
-                  <input id="signup-password" name="password" type="password" required>
-                </div>
-              </fieldset>
-              <button type="submit" class="btn-signup">Continue</button>
-            </form>
-          </div>
-        </div>
-      </section>
-      <script>
-        const switchers = [...document.querySelectorAll('.switcher')]
 
-switchers.forEach(item => {
-	item.addEventListener('click', function() {
-		switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-		this.parentElement.classList.add('is-active')
-	})
-})
-      </script>
+<body>
+
+
+	<input type="radio" name="optionScreen" id="SignIn" hidden checked>
+	<input type="radio" name="optionScreen" id="SignUp" hidden>
+
+	<section>
+		<div id="logo">
+			<img src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
+				alt="Spotify-Logo" width="50">
+			<h1>Spotify</h1>
+		</div>
+
+		<nav>
+			<label for="SignIn">Sign In</label>
+			<label for="SignUp">Sign Up</label>
+		</nav>
+
+		<form action="/login" method="post" id="SignInFormData">
+			<input type="text" name="username" id="username" placeholder="Username">
+			<input type="password" name="password" id="password" placeholder="Password">
+			<button type="submit" title="Sing In">Sign In</button>
+			<a id="forgotPassword">forgot Password?</a>
+		</form>
+
+		<form action="/register" method="post" id="SignUpFormData">
+			<input type="text" name="username" id="name" placeholder="Username">
+			<input type="email" name="email" id=email placeholder="E-mail">
+			<input type="password" name="password" id="password" placeholder="New Password">
+			<button type="submit" title="Sing Up">Register</button>
+		</form>
+
+	</section>
 </body>
+
 </html>
