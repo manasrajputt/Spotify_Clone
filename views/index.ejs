@@ -14,7 +14,8 @@
   <div id="main">
     <div class="left">
       <a href="#">
-        <img style="width: 130px;" src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+        <img style="width: 130px;"
+          src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
       </a>
       <a href="/">
         <i class="ri-home-fill"></i>
@@ -118,14 +119,16 @@
       let clutter = ''
       result.data.songs.forEach(song => {
         clutter += ` <div class="song" onclick="songCardClick('${song.fileName}')">
-          <img src="/poster/${song.poster}" alt="">
+          <div class="image">
+            <img src="/poster/${song.poster}" alt="">
+            <div class="playButton">
+              <i class="ri-play-circle-fill"></i>
+            </div>
+          </div>
           <div class="text">
             <h5>${song.title}</h5>
             <p> ${song.artist}</p>
             <p> ${song.album}</p>
-          </div>
-          <div class="playButton">
-            <i class="ri-play-circle-fill"></i>
           </div>
         </div>`
       });
