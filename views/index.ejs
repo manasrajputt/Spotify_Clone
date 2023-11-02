@@ -14,31 +14,31 @@
   <div id="main">
     <div class="left">
       <a href="#">
-        <img style="width: 130px;"
+        <img
           src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
       </a>
       <a href="/">
         <i class="ri-home-fill"></i>
-        <p>Home</p>
+        <p class="left-text">Home</p>
       </a>
       <div class="search">
-        <input type="text" placeholder="What do you want to listen to?">
         <i class="ri-search-fill"></i>
+        <input class="left-text" type="text" placeholder="Search">
       </div>
       <a href="/likedMusic">
         <i class="ri-heart-line"></i>
-        <p>Liked Music</p>
+        <p class="left-text">Liked Music</p>
       </a>
-      <a class="playlist">
+      <a id="add" class="playlist">
         <div class="playlist">
-          <i id="add" class="ri-play-list-line"></i>
-          <p>PlayList</p>
+          <i  class="ri-play-list-line"></i>
+          <p class="left-text">PlayList</p>
         </div>
-        <i id="add" class="ri-add-line"></i>
       </a>
       <div class="newplaylist">
         <form action="/createplaylist" id="playlistform" method="post">
           <input name="playlistName" type="text" placeholder="Add PlayList">
+          <i id="submit-form" class="ri-add-line"></i>
         </form>
         <% currentUser.playlist.forEach(function(playlist){ %>
           <div class="text">
@@ -56,7 +56,7 @@
       </div>
       <a class="lst-left" href="/logout">
         <i class="ri-logout-box-line"></i>
-        <p>logout</p>
+        <p class="left-text">logout</p>
       </a>
     </div>
     <div class="right">
@@ -148,14 +148,18 @@
     var flag1 = true;
     document.querySelector("#add").addEventListener('click', function () {
       if (flag1) {
-        document.querySelector("#playlistform").style.display = "block";
+        document.querySelector(".newplaylist").style.opacity = "1";
         flag1 = false;
       }
       else {
-        document.querySelector("#playlistform").style.display = "none";
+        document.querySelector(".newplaylist").style.opacity = "0";
         flag1 = true;
       }
     });
+
+    document.querySelector('#submit-form').addEventListener('click',function(){
+      document.querySelector('#playlistform').submit();
+    })
 
   </script>
 </body>

@@ -11,24 +11,27 @@
 <body>
   <div id="main">
     <div class="left">
+      <a href="#">
+        <img
+          src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+      </a>
       <a href="/">
         <i class="ri-home-fill"></i>
-        <p>Home</p>
+        <p class="left-text">Home</p>
       </a>
       <div class="search">
-        <input type="text" placeholder="What do you want to listen to?">
         <i class="ri-search-fill"></i>
+        <input class="left-text" type="text" placeholder="Search">
       </div>
       <a href="/likedMusic">
         <i class="ri-heart-line"></i>
-        <p>Liked Music</p>
+        <p class="left-text">Liked Music</p>
       </a>
       <a class="playlist">
         <div class="playlist">
           <i class="ri-play-list-line"></i>
-          <p>PlayList</p>
+          <p class="left-text">PlayList</p>
         </div>
-        <i id="add" class="ri-add-line"></i>
       </a>
       <div class="newplaylist">
         <form action="/createplaylist" id="playlistform" method="post">
@@ -42,7 +45,7 @@
       </div>
       <a class="lst-left" href="/logout">
         <i class="ri-logout-box-line"></i>
-        <p>logout</p>
+        <p class="left-text">logout</p>
       </a>
     </div>
     <div class="right">
