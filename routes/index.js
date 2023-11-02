@@ -32,7 +32,7 @@ router.get('/', isLoggedIn, async function (req, res, next) {
       }
     })
 
-    res.render('index', { currentUser});
+  res.render('index', { currentUser });
 });
 
 router.get('/poster/:posterName', isLoggedIn, function (req, res, next) {
@@ -244,7 +244,7 @@ router.post("/createplaylist", isLoggedIn, async function (req, res, next) {
   res.redirect('/');
 })
 
-router.get('/deleteplaylist/:playlistid' ,isLoggedIn, async function (req, res, next) {
+router.get('/deleteplaylist/:playlistid', isLoggedIn, async function (req, res, next) {
   const foundUser = await userModel.findOne({ username: req.session.passport.user })
   console.log(foundUser)
   foundUser.playlist.splice(foundUser.playlist.indexOf(req.params.playlistid), 1);
@@ -264,10 +264,10 @@ router.get('/AddPlayList/:playlistid/:songid', isLoggedIn, async function (req, 
 })
 
 router.get('/PlayList/:playlistid', isLoggedIn, async function (req, res, next) {
-  const userdata=req.user;
+  const userdata = req.user;
   const foundPlayList = await playlistModel.findOne({ _id: req.params.playlistid })
     .populate("songs");
-  res.render("playList", { foundPlayList,userdata })
+  res.render("playList", { foundPlayList, userdata })
 })
 
 router.get('/removesong/:playlistid/:songid', isLoggedIn, async function (req, res, next) {
