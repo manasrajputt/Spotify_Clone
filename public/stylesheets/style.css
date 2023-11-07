@@ -30,8 +30,12 @@ body {
   transition: all ease 0.3s;
 }
 
-.left img{
-  width: 10vw;
+.left #logo{
+  color: #1ED760; 
+  font-family: Gotham Rounded Book, 
+  sans-serif; 
+  font-weight: bold;
+  font-size: 1.4vw;
 }
 
 .left a {

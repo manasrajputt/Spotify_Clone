@@ -36,7 +36,6 @@ router.get('/', isLoggedIn, async function (req, res, next) {
   res.render('index', { currentUser });
 });
 
-
 router.get('/auth', function (req, res, next) {
   res.render("register");
 })
@@ -175,7 +174,6 @@ router.get('/stream/:musicName', isLoggedIn, async function (req, res, next) {
   res.set('Content-Ranges', 'byte')
   res.status(206)
 
-
   stream.pipe(res)
 })
 
@@ -230,7 +228,6 @@ router.get('/likedMusic', isLoggedIn, async function (req, res, next) {
   // console.log(songData);
   res.render("likedMusic", { songData });
 })
-
 
 router.post("/createplaylist", isLoggedIn, async function (req, res, next) {
   const defaultplayList = await playlistModel.create({
