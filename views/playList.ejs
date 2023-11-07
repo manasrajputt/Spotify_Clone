@@ -27,16 +27,13 @@
         <i class="ri-heart-line"></i>
         <p class="left-text">Liked Music</p>
       </a>
-      <a class="playlist">
+      <a id="add" class="playlist">
         <div class="playlist">
           <i class="ri-play-list-line"></i>
           <p class="left-text">PlayList</p>
         </div>
       </a>
       <div class="newplaylist">
-        <form action="/createplaylist" id="playlistform" method="post">
-          <input name="playlistName" type="text" placeholder="Add PlayList">
-        </form>
           <div class="text">
             <h5>
               <a href="/PlayList/<%= foundPlayList._id %>"><%= foundPlayList.name %></a>
@@ -124,17 +121,7 @@
       document.querySelector('audio').play()
     }
 
-    var flag1 = true;
-    document.querySelector("#add").addEventListener('click', function () {
-      if (flag1) {
-        document.querySelector("#playlistform").style.display = "block";
-        flag1 = false;
-      }
-      else {
-        document.querySelector("#playlistform").style.display = "none";
-        flag1 = true;
-      }
-    });
+    document.querySelector(".newplaylist").style.opacity = "1";
 
   </script>
 </body>

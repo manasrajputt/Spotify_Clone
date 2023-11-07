@@ -141,6 +141,7 @@ body {
 .newplaylist .text i,
 .newplaylist .text h5 a {
   font-size: 15px;
+  color: white;
 }
 
 .right {

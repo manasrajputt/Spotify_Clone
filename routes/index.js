@@ -9,8 +9,9 @@ const multer = require('multer');
 const id3 = require('node-id3');
 const { Readable } = require('stream');
 const crypto = require('crypto');
+require('dotenv').config();
 
-mongoose.connect('mongodb://0.0.0.0/spt-n15').then(() => {
+mongoose.connect(process.env.mongodb_url).then(() => {
   console.log("db connected");
 }).catch(err => {
   console.log(err);
@@ -35,9 +36,6 @@ router.get('/', isLoggedIn, async function (req, res, next) {
   res.render('index', { currentUser });
 });
 
-router.get('/poster/:posterName', isLoggedIn, function (req, res, next) {
-  gfsBucketPoster.openDownloadStreamByName(req.params.posterName).pipe(res)
-})
 
 router.get('/auth', function (req, res, next) {
   res.render("register");
@@ -79,7 +77,7 @@ router.post('/uploadmusic', isLoggedIn, isAdmin, upload.array('song'), async fun
 
     await songModel.create({
       title: songData.title,
-      artist: songData.artist,
+      artist: songData.artist,  
       album: songData.album,
       size: file.size,
       poster: rdmName + 'poster',
@@ -87,6 +85,11 @@ router.post('/uploadmusic', isLoggedIn, isAdmin, upload.array('song'), async fun
     })
   }))
   res.send('uploaded');
+})
+
+router.get('/poster/:posterName', function (req, res, next) {
+  console.log(req.params.posterName)
+  gfsBucketPoster.openDownloadStreamByName(req.params.posterName).pipe(res)
 })
 
 /* user authentication routes */
