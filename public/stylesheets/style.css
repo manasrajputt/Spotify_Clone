@@ -362,4 +362,8 @@ audio {
     margin-bottom: 4px;
   }
 
+  .right2 audio{
+    width: 90%;
+  }
+
 }
