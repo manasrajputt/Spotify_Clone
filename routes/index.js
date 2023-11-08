@@ -11,7 +11,7 @@ const { Readable } = require('stream');
 const crypto = require('crypto');
 require('dotenv').config();
 
-mongoose.connect(process.env.mongodb_url).then(() => {
+mongoose.connect('mongodb+srv://manasrajput7470:korludag123@cluster0.mln49bw.mongodb.net/Music_App?retryWrites=true&w=majority').then(() => {
   console.log("db connected");
 }).catch(err => {
   console.log(err);
