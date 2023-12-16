@@ -38,6 +38,10 @@ body {
   font-size: 1.4vw;
 }
 
+#logo img{
+  width: 9vw;
+}
+
 .left a {
   font-size: 28px;
   background-color: transparent;
