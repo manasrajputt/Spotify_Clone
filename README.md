@@ -1,3 +1,5 @@
+# Spotify_Clone
+
 🎵🚀 I'm thrilled to introduce my latest creation: a music streaming project, resembling Spotify Clone! 🚀🎵
 
 Tech Stack: HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, Passport.js, Multer.
